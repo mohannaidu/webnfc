@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Testing RFID</title>
+  <style>
+    .output {
+      background-color: #f0f0f0;
+      border-radius: 0.75em;
+      display: block;
+      margin: 0.5em;
+      padding: 0.5em;
+    }
+  </style>
+
+</head>
+<body>
+
+<h1>Cruise Web NFC </h1>
+<button id="scanButton">Scan</button>
+<button id="writeButton">Write</button>
+
+<h3>Live Output</h3>
+<div id="output" class="output">
+  <div id="content"></div>
+  <div id="status"></div>
+  <pre id="log">
+</pre>
+</div>
+<script src="rfid.js"></script>
+</body>
+</html>
