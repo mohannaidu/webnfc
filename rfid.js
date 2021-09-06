@@ -58,10 +58,26 @@ scanButton.addEventListener("click", async () => {
 
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
             log(`> Serial Number: ${serialNumber}`);
-            const record = message.records[0] ;
-            const textDecoder = new TextDecoder(record.encoding);
-            log(`> Message: (${textDecoder.decode(record.data)} (${record.lang})`);
-            log(`> Records: (${message.records.length})`);
+            for (const record of message.records) {
+                log(`>Record type:  ${record.recordType}`);
+                log(`>MIME type:    ${record.mediaType}`);
+                log(`Record id:   ${record.id}`);
+                switch (record.recordType) {
+                    case "text":
+                        // TODO: Read text record with record data, lang, and encoding.
+                        break;
+                    case "url":
+                        // TODO: Read URL record with record data.
+                        break;
+                    default:
+                    // TODO: Handle other records with record data.
+                }
+            }
+            // log(`> Serial Number: ${serialNumber}`);
+            // const record = message.records ;
+            // const textDecoder = new TextDecoder(record.encoding);
+            // log(`> Message: (${textDecoder.decode(record.data)} (${record.lang})`);
+            // log(`> Records: (${message.records.length})`);
         });
     } catch (error) {
         log("Argh! " + error);
