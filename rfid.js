@@ -58,7 +58,9 @@ scanButton.addEventListener("click", async () => {
 
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
             log(`> Serial Number: ${serialNumber}`);
-            log(`> Message: (${message.records[0]})`);
+            const record = message.records[0] ;
+            const textDecoder = new TextDecoder(record.encoding);
+            log(`> Message: (${textDecoder.decode(record.data)} (${record.lang})`);
             log(`> Records: (${message.records.length})`);
         });
     } catch (error) {
