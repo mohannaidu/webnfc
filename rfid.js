@@ -53,19 +53,20 @@ async function startScanning() {
         /* handle NDEF messages */
         const message = event.message;
         for (const record of message.records) {
-           log("Record type:  " + record.recordType);
+            log("Record type:  " + record.recordType);
             log("MIME type:    " + record.mediaType);
             log("Record id:    " + record.id);
-            switch (record.recordType) {
-                case "text":
-                    // TODO: Read text record with record data, lang, and encoding.
-                    break;
-                case "url":
-                    // TODO: Read URL record with record data.
-                    break;
-                default:
-                // TODO: Handle other records with record data.
-            }
+            log("Record length: " + record.length);
+            // switch (record.recordType) {
+            //     case "text":
+            //         // TODO: Read text record with record data, lang, and encoding.
+            //         break;
+            //     case "url":
+            //         // TODO: Read URL record with record data.
+            //         break;
+            //     default:
+            //     // TODO: Handle other records with record data.
+            // }
         }
     };
 }
