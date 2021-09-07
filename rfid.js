@@ -5,7 +5,7 @@ window.addEventListener('error', function(error) {
     if (ChromeSamples && ChromeSamples.setStatus) {
         console.error(error);
         ChromeSamples.setStatus(error.message + ' (Your browser may not support this feature.)');
-        error.preventDefault();
+       error.preventDefault();
     }
 });
 
@@ -43,55 +43,53 @@ if (!("NDEFReader" in window))
         'Please make sure the "Experimental Web Platform features" flag is enabled on Android.'
     );
 
+const ndef = new NDEFReader();
+
+async function startScanning() {
+    log("Awaiting scan");
+    await ndef.scan();
+    log("Onreading scan");
+    ndef.onreading = event => {
+        /* handle NDEF messages */
+        const message = event.message;
+        for (const record of message.records) {
+           log("Record type:  " + record.recordType);
+            log("MIME type:    " + record.mediaType);
+            log("Record id:    " + record.id);
+            switch (record.recordType) {
+                case "text":
+                    // TODO: Read text record with record data, lang, and encoding.
+                    break;
+                case "url":
+                    // TODO: Read URL record with record data.
+                    break;
+                default:
+                // TODO: Handle other records with record data.
+            }
+        }
+    };
+}
+
+// const nfcPermissionStatus = await navigator.permissions.query({ name: "nfc" });
+// if (nfcPermissionStatus.state === "granted") {
+//     // NFC access was previously granted, so we can start NFC scanning now.
+//     await startScanning();
+// }
 
 scanButton.addEventListener("click", async () => {
     log("User clicked scan button");
+    startScanning();
 
-    try {
-        const ndef = new NDEFReader();
-        await ndef.scan();
-        log("> Scan started");
-
-        ndef.addEventListener("readingerror", () => {
-            log("Argh! Cannot read data from the NFC tag. Try another one?");
-        });
-
-        ndef.addEventListener("reading", ({ message, serialNumber }) => {
-            log(`> Serial Number: ${serialNumber}`);
-            for (const record of message.records) {
-                log(`>Record type:  ${record.recordType}`);
-                log(`>MIME type:    ${record.mediaType}`);
-                log(`Record id:   ${record.id}`);
-                switch (record.recordType) {
-                    case "text":
-                        // TODO: Read text record with record data, lang, and encoding.
-                        break;
-                    case "url":
-                        // TODO: Read URL record with record data.
-                        break;
-                    default:
-                    // TODO: Handle other records with record data.
-                }
-            }
-            // log(`> Serial Number: ${serialNumber}`);
-            // const record = message.records ;
-            // const textDecoder = new TextDecoder(record.encoding);
-            // log(`> Message: (${textDecoder.decode(record.data)} (${record.lang})`);
-            // log(`> Records: (${message.records.length})`);
-        });
-    } catch (error) {
-        log("Argh! " + error);
-    }
 });
 
 writeButton.addEventListener("click", async () => {
     log("User clicked write button");
 
-    try {
-        const ndef = new NDEFReader();
-        await ndef.write("Hello world!");
-        log("> Message written");
-    } catch (error) {
-        log("Argh! " + error);
-    }
+    // try {
+    //     const ndef = new NDEFReader();
+    //     await ndef.write("Hello world!");
+    //     log("> Message written");
+    // } catch (error) {
+    //     log("Argh! " + error);
+    // }
 });
