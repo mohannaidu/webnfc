@@ -60,7 +60,8 @@ async function startScanning() {
             switch (record.recordType) {
                 case "text":
                     // TODO: Read text record with record data, lang, and encoding.
-                    log(record.textContent);
+                    const textDecoder = new TextDecoder(record.encoding);
+                    log(`Text: ${textDecoder.decode(record.data)} (${record.lang})`);
                     break;
                 case "url":
                     // TODO: Read URL record with record data.
