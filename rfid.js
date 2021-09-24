@@ -57,16 +57,17 @@ async function startScanning() {
             log("MIME type:    " + record.mediaType);
             log("Record id:    " + record.id);
             log("Record length: " + record.length);
-            // switch (record.recordType) {
-            //     case "text":
-            //         // TODO: Read text record with record data, lang, and encoding.
-            //         break;
-            //     case "url":
-            //         // TODO: Read URL record with record data.
-            //         break;
-            //     default:
-            //     // TODO: Handle other records with record data.
-            // }
+            switch (record.recordType) {
+                case "text":
+                    // TODO: Read text record with record data, lang, and encoding.
+                    log(record.textContent);
+                    break;
+                case "url":
+                    // TODO: Read URL record with record data.
+                    break;
+                default:
+                // TODO: Handle other records with record data.
+            }
         }
     };
 }
