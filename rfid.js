@@ -67,6 +67,11 @@ async function startScanning() {
                     // TODO: Read URL record with record data.
                     break;
                 default:
+                    log(`Entering default recordtype`);
+                    const emptyRecord = record.toRecords();
+                    log(`Empty Record Text: ${textDecoder.decode(emptyRecord)} `);
+                    break;
+
                 // TODO: Handle other records with record data.
             }
         }
