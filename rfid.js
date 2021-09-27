@@ -51,7 +51,9 @@ async function startScanning() {
     log("Onreading scan");
     ndef.onreading = event => {
         /* handle NDEF messages */
-        const message = event.message;
+        const message = event.message.data;
+        if(!data)
+            log("xxxxxxxxxxxxx this is empty record");
         for (const record of message.records) {
             log("Record type:  " + record.recordType);
             log("MIME type:    " + record.mediaType);
@@ -67,9 +69,6 @@ async function startScanning() {
                     // TODO: Read URL record with record data.
                     break;
                 default:
-                    log(`Entering default recordtype`);
-                    const textDecoder2 = new TextDecoder(record.encoding);
-                    log(`Text: ${textDecoder2.decode(record.data)} `);
                     break;
 
                 // TODO: Handle other records with record data.
