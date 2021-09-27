@@ -68,8 +68,8 @@ async function startScanning() {
                     break;
                 default:
                     log(`Entering default recordtype`);
-                    const emptyRecord = record.toRecords();
-                    log(`Empty Record Text: ${textDecoder.decode(emptyRecord)} `);
+                    const textDecoder2 = new TextDecoder(record.encoding);
+                    log(`Text: ${textDecoder2.decode(record.data)} `);
                     break;
 
                 // TODO: Handle other records with record data.
