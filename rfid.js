@@ -96,17 +96,19 @@ writeButton.addEventListener("click", async () => {
         if (ndeftype.value === "text"){
             await ndef.write(textdata.textContent);
         }else if (ndeftype.value === "url") {
+            var urlStr = textdata.textContent.toString();
             await ndef.write({
                     records: [{ recordType: 'url',
-                    data: 'https://www.oracle.com/index.html' }]});
+                    data: urlStr }]});
         }else if (ndeftype.value === "map") {
-            // https://www.google.com/maps/d/viewer?mid=1o1YGOT0You6CpIEMUWSdp4kSXqI&hl=en&ll=25.77718986481862%2C-80.17303065917469&z=17
-            log('map');
+            var urlStr = textdata.textContent.toString();
+            await ndef.write({
+                records: [{ recordType: 'url',
+                    data: urlStr }]});
         }else if (ndeftype.value === "smart") {
             log('smart');
         }
 
-        log("> Message written");
     } catch (error) {
         log("Argh! " + error);
     }
