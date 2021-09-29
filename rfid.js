@@ -106,6 +106,45 @@ writeButton.addEventListener("click", async () => {
                 records: [{ recordType: 'url',
                     data: urlStr }]});
         }else if (ndeftype.value === "smart") {
+            const encoder = new TextEncoder();
+            await ndef.write({ records: [
+                    {
+                        recordType: "smart-poster",  // Sp
+                        data: { records: [
+                                {
+                                    recordType: "url",  // URL record for the Sp content
+                                    data: "https://my.org/content/19911"
+                                },
+                                {
+                                    recordType: "text",  // title record for the Sp content
+                                    data: "Funny dance"
+                                },
+                                {
+                                    recordType: ":t",  // type record, a local type to Sp
+                                    data: encoder.encode("image/gif") // MIME type of the Sp content
+                                },
+                                {
+                                    recordType: ":s",  // size record, a local type to Sp
+                                    data: new Uint32Array([4096]) // byte size of Sp content
+                                },
+                                {
+                                    recordType: ":act",  // action record, a local type to Sp
+                                    // do the action, in this case open in the browser
+                                    data: new Uint8Array([0])
+                                },
+                                {
+                                    recordType: "mime", // icon record, a MIME type record
+                                    mediaType: "image/png",
+                                    data: await (await fetch("icon1.png")).arrayBuffer()
+                                },
+                                {
+                                    recordType: "mime", // another icon record
+                                    mediaType: "image/jpg",
+                                    data: await (await fetch("icon2.jpg")).arrayBuffer()
+                                }
+                            ]}
+                    }
+                ]});
             log('smart');
         }
 
@@ -128,7 +167,7 @@ ndeftype.addEventListener("change", async () => {
         }else if (ndeftype.value === "map") {
             textdata.value = 'https://www.google.com/maps/d/viewer?mid=1o1YGOT0You6CpIEMUWSdp4kSXqI&hl=en&ll=25.77718986481862%2C-80.17303065917469&z=17';
         }else if (ndeftype.value === "smart") {
-            textdata.value = '';
+            textdata.value = '"records: [\\n      {\\n        recordType: \\"url\\",  // URL record for the Sp content\\n        data: \\"https://my.org/content/19911\\"\\n      },\\n      {\\n        recordType: \\"text\\",  // title record for the Sp content\\n        data: \\"Funny dance\\"\\n      },\\n      {\\n        recordType: \\":t\\",  // type record, a local type to Sp\\n        data: encoder.encode(\\"image/gif\\") // MIME type of the Sp content\\n      },\\n      {\\n        recordType: \\":s\\",  // size record, a local type to Sp\\n        data: new Uint32Array([4096]) // byte size of Sp content\\n      },\\n      {\\n        recordType: \\":act\\",  // action record, a local type to Sp\\n        // do the action, in this case open in the browser\\n        data: new Uint8Array([0])\\n      },\\n      {\\n        recordType: \\"mime\\", // icon record, a MIME type record\\n        mediaType: \\"image/png\\",\\n        data: await (await fetch(\\"icon1.png\\")).arrayBuffer()\\n      },\\n      {\\n        recordType: \\"mime\\", // another icon record\\n        mediaType: \\"image/jpg\\",\\n        data: await (await fetch(\\"icon2.jpg\\")).arrayBuffer()\\n      }\\n    ]"';
         }
 
         log("> Message written");
