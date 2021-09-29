@@ -3,9 +3,9 @@
 // which don't support specific functionality still end up displaying a meaningful message.
 window.addEventListener('error', function(error) {
     if (ChromeSamples && ChromeSamples.setStatus) {
-        console.error(error);
+        //console.error(error);
         ChromeSamples.setStatus(error.message + ' (Your browser may not support this feature.)');
-       error.preventDefault();
+       //error.preventDefault();
     }
 });
 
@@ -51,9 +51,7 @@ async function startScanning() {
     log("Onreading scan");
     ndef.onreading = event => {
         /* handle NDEF messages */
-        const message = event.message.data;
-        if(!data)
-            log("xxxxxxxxxxxxx this is empty record");
+        const message = event.message;
         for (const record of message.records) {
             log("Record type:  " + record.recordType);
             log("MIME type:    " + record.mediaType);
@@ -86,17 +84,54 @@ async function startScanning() {
 scanButton.addEventListener("click", async () => {
     log("User clicked scan button");
     startScanning();
-
 });
 
 writeButton.addEventListener("click", async () => {
-    log("User clicked write button");
+    log("User clicked write button" );
 
     try {
         const ndef = new NDEFReader();
-        await ndef.write("Hello world!");
+
+
+        if (ndeftype.value === "text"){
+            await ndef.write(textdata.textContent);
+        }else if (ndeftype.value === "url") {
+            await ndef.write({
+                    records: [{ recordType: "url",
+                    data: textdata.textContent }]});
+        }else if (ndeftype.value === "map") {
+            // https://www.google.com/maps/d/viewer?mid=1o1YGOT0You6CpIEMUWSdp4kSXqI&hl=en&ll=25.77718986481862%2C-80.17303065917469&z=17
+            log('map');
+        }else if (ndeftype.value === "smart") {
+            log('smart');
+        }
+
         log("> Message written");
     } catch (error) {
         log("Argh! " + error);
     }
 });
+
+ndeftype.addEventListener("change", async () => {
+    log("User changed dropdown" );
+
+    try {
+        const ndef = new NDEFReader();
+
+
+        if (ndeftype.value === "text"){
+            textdata.value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis hoc dicit? Hoc est non dividere, sed frangere. Ac tamen hic mallet non dolere. Sin aliud quid voles, postea.';
+        }else if (ndeftype.value === "url") {
+            textdata.value = 'https://www.oracle.com/index.html';
+        }else if (ndeftype.value === "map") {
+            textdata.value = 'https://www.google.com/maps/d/viewer?mid=1o1YGOT0You6CpIEMUWSdp4kSXqI&hl=en&ll=25.77718986481862%2C-80.17303065917469&z=17';
+        }else if (ndeftype.value === "smart") {
+            textdata.value = '';
+        }
+
+        log("> Message written");
+    } catch (error) {
+        log("Argh! " + error);
+    }
+});
+

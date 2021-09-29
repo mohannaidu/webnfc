@@ -16,9 +16,20 @@
 </head>
 <body>
 
-<h1>Web NFC Testing</h1>
+<h1>Web NFC POC</h1>
 <button id="scanButton">Scan</button>
 <button id="writeButton">Write</button>
+<br><br>
+<label for="textdata">Data To Be Saved:</label><br>
+<textarea id="textdata" name="textdata" rows="4" cols="50">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis hoc dicit? Hoc est non dividere, sed frangere. Ac tamen hic mallet non dolere. Sin aliud quid voles, postea.</textarea>
+<br><br>
+<label for="ndeftype">Choose a type:</label>
+<select name="ndeftype" id="ndeftype">
+  <option value="text">Text</option>
+  <option value="url">URL</option>
+  <option value="map">Map</option>
+  <option value="smart">Smart Poster</option>
+</select>
 
 <h3>Live Output</h3>
 <div id="output" class="output">
