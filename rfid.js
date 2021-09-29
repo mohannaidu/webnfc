@@ -95,14 +95,17 @@ writeButton.addEventListener("click", async () => {
 
         if (ndeftype.value === "text"){
             await ndef.write(textdata.textContent);
+            log('text written');
         }else if (ndeftype.value === "url") {
             await ndef.write({
                     records: [{ recordType: 'url',
                     data: 'https://www.oracle.com/index.html' }]});
+            log('url written');
         }else if (ndeftype.value === "map") {
             await ndef.write({
                 records: [{ recordType: 'url',
                     data: 'https://www.google.com/maps/d/viewer?mid=1o1YGOT0You6CpIEMUWSdp4kSXqI&hl=en&ll=25.77718986481862%2C-80.17303065917469&z=17' }]});
+            log('map written');
         }else if (ndeftype.value === "smart") {
             const encoder = new TextEncoder();
             await ndef.write({ records: [
@@ -143,7 +146,7 @@ writeButton.addEventListener("click", async () => {
                             ]}
                     }
                 ]});
-            log('smart');
+            log('smart message written');
         }
 
     } catch (error) {
@@ -168,7 +171,6 @@ ndeftype.addEventListener("change", async () => {
             textdata.value = '"records: [\\n      {\\n        recordType: \\"url\\",  // URL record for the Sp content\\n        data: \\"https://my.org/content/19911\\"\\n      },\\n      {\\n        recordType: \\"text\\",  // title record for the Sp content\\n        data: \\"Funny dance\\"\\n      },\\n      {\\n        recordType: \\":t\\",  // type record, a local type to Sp\\n        data: encoder.encode(\\"image/gif\\") // MIME type of the Sp content\\n      },\\n      {\\n        recordType: \\":s\\",  // size record, a local type to Sp\\n        data: new Uint32Array([4096]) // byte size of Sp content\\n      },\\n      {\\n        recordType: \\":act\\",  // action record, a local type to Sp\\n        // do the action, in this case open in the browser\\n        data: new Uint8Array([0])\\n      },\\n      {\\n        recordType: \\"mime\\", // icon record, a MIME type record\\n        mediaType: \\"image/png\\",\\n        data: await (await fetch(\\"icon1.png\\")).arrayBuffer()\\n      },\\n      {\\n        recordType: \\"mime\\", // another icon record\\n        mediaType: \\"image/jpg\\",\\n        data: await (await fetch(\\"icon2.jpg\\")).arrayBuffer()\\n      }\\n    ]"';
         }
 
-        log("> Message written");
     } catch (error) {
         log("Argh! " + error);
     }
