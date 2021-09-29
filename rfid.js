@@ -97,8 +97,8 @@ writeButton.addEventListener("click", async () => {
             await ndef.write(textdata.textContent);
         }else if (ndeftype.value === "url") {
             await ndef.write({
-                    records: [{ recordType: "url",
-                    data: textdata.textContent }]});
+                    records: [{ recordType: 'url',
+                    data: 'https://www.oracle.com/index.html' }]});
         }else if (ndeftype.value === "map") {
             // https://www.google.com/maps/d/viewer?mid=1o1YGOT0You6CpIEMUWSdp4kSXqI&hl=en&ll=25.77718986481862%2C-80.17303065917469&z=17
             log('map');
