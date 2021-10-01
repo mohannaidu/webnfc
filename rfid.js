@@ -92,7 +92,6 @@ writeButton.addEventListener("click", async () => {
     try {
         const ndef = new NDEFReader();
 
-
         if (ndeftype.value === "text"){
             await ndef.write(textdata.textContent);
             log('text written');
