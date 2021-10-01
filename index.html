@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <title>Testing RFID</title>
   <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+    }
+
     .output {
       background-color: #f0f0f0;
       border-radius: 0.75em;
@@ -11,25 +16,75 @@
       margin: 0.5em;
       padding: 0.5em;
     }
+    /* Header/Logo Title */
+    .header {
+      padding: 10px;
+      text-align: center;
+      background: #1abc9c;
+      color: white;
+      font-size: 30px;
+    }
+    .button {
+      display: inline-block;
+      padding: 15px 25px;
+      font-size: 24px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 3px #999;
+    }
+
+    .button:hover {background-color: #3e8e41}
+
+    .button:active {
+      background-color: #3e8e41;
+      box-shadow: 0 5px #666;
+      transform: translateY(2px);
+      transform: translateX(2px);
+    }
+
+    .content {
+      padding:20px;
+      font-size:200%;
+    }
+
+    textarea
+    {
+      font-size:120%;
+      border-width: 2px;
+    }
+
+    select
+    {
+      font-size:100%;
+    }
   </style>
 
 </head>
 <body>
 
-<h1>Web NFC POC</h1>
-<button id="scanButton">Scan</button>
-<button id="writeButton">Write</button>
-<br><br>
-<label for="textdata">Data To Be Saved:</label><br>
-<textarea id="textdata" name="textdata" rows="4" cols="100">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis hoc dicit? Hoc est non dividere, sed frangere. Ac tamen hic mallet non dolere. Sin aliud quid voles, postea.</textarea>
-<br><br>
-<label for="ndeftype">Choose a type:</label>
-<select name="ndeftype" id="ndeftype">
-  <option value="text">Text</option>
-  <option value="url">URL</option>
-  <option value="map">Map</option>
-  <option value="smart">Smart Poster</option>
-</select>
+<div class="header">
+  <h1>Web NFC POC</h1>
+</div>
+<div class="content">
+  <button id="scanButton" class="button">Scan</button>
+  <button id="writeButton" class="button">Write</button>
+  <br><br>
+  <label for="textdata">Data To Be Saved:</label><br><br>
+  <textarea id="textdata" name="textdata" rows="5" style="width:100%">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis hoc dicit? Hoc est non dividere, sed frangere. Ac tamen hic mallet non dolere. Sin aliud quid voles, postea.</textarea>
+  <br><br>
+  <label for="ndeftype">Choose a type:</label>
+  <select name="ndeftype" id="ndeftype">
+    <option value="text">Text</option>
+    <option value="url">URL</option>
+    <option value="map">Map</option>
+    <option value="smart">Smart Poster</option>
+  </select>
 
 <h3>Live Output</h3>
 <div id="output" class="output">
@@ -37,6 +92,7 @@
   <div id="status"></div>
   <pre id="log">
 </pre>
+</div>
 </div>
 <script src="rfid.js"></script>
 </body>

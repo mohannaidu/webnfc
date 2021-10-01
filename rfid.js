@@ -53,10 +53,10 @@ async function startScanning() {
         /* handle NDEF messages */
         const message = event.message;
         for (const record of message.records) {
-            log("Record type:  " + record.recordType);
-            log("MIME type:    " + record.mediaType);
-            log("Record id:    " + record.id);
-            log("Record length: " + record.length);
+            // log("Record type:  " + record.recordType);
+            // log("MIME type:    " + record.mediaType);
+            // log("Record id:    " + record.id);
+            // log("Record length: " + record.length);
             switch (record.recordType) {
                 case "text":
                     // TODO: Read text record with record data, lang, and encoding.
@@ -64,7 +64,7 @@ async function startScanning() {
                     log(`Text: ${textDecoder.decode(record.data)} (${record.lang})`);
                     break;
                 case "url":
-                    // TODO: Read URL record with record data.
+                    log(`URL: ${record.data} `);
                     break;
                 default:
                     break;
