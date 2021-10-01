@@ -15,15 +15,15 @@ var ChromeSamples = {
             return typeof argument === 'string' ? argument : JSON.stringify(argument);
         }).join(' ');
 
-        document.querySelector('#log').textContent += line + '\n';
+        document.querySelector('#output').textContent += line + '\n';
     },
 
     clearLog: function() {
-        document.querySelector('#log').textContent = '';
+        document.querySelector('#output').textContent = '';
     },
 
     setStatus: function(status) {
-        document.querySelector('#status').textContent = status;
+        document.querySelector('#output').textContent = status;
     },
 
     setContent: function(newContent) {
